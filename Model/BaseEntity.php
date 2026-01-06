@@ -7,7 +7,7 @@ abstract class BaseEntity{
             if($ref->hasProperty($key)){
                 $prop =$ref->getProperty($key);
                 $prop->setAccessible(true);
-                $prop->getValue($this ,$value);
+                $prop->setValue($this ,$value);
             }
         }
 

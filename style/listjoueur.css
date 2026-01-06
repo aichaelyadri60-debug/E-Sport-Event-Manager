@@ -1,0 +1,146 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.page-header,
+.card {
+    margin-left: 300px;
+     margin-right: 30px;
+    padding-top: 60px;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.search-form {
+    display: flex;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.search-form input {
+    border: none;
+    padding: 8px 10px;
+    outline: none;
+    width: 180px;
+}
+
+.search-form button {
+    border: none;
+    background: #e5e7eb;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.btn {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1d4ed8;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.table thead {
+    background: #f9fafb;
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.table tbody tr:hover {
+    background: #f1f5f9;
+}
+
+.actions {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-action {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-decoration: none;
+    color: white;
+}
+
+.btn-action.view {
+    background: #6b7280;
+}
+
+.btn-action.edit {
+    background: #f59e0b;
+}
+
+.btn-action.delete {
+    background: #dc2626;
+}
+
+.btn-action:hover {
+    opacity: 0.85;
+}
+
+.empty {
+    text-align: center;
+    padding: 20px;
+    color: #9ca3af;
+}
+
+@media (max-width: 900px) {
+    .page-header,
+    .card {
+        margin-left: 0;
+    }
+}

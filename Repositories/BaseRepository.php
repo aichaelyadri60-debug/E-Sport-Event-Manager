@@ -1,60 +1,66 @@
 <?php
 
-
-class BaseRepository{
-    protected string $table ;
+abstract class BaseRepository
+{
+    protected string $table;
     protected string $entityClass;
-    public PDO $pdo;
-    public function __construct(){
-        $this->pdo=Database::getInstance()->getConnection();
+    protected string $primaryKey ='id';
+    protected PDO $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
     }
 
-    public function findAll(){
-        $entities =[];
-        $sql = "SELECT * FROM {$this->table}";
-        $stmt =$this->pdo->query($sql);
-        $results =$stmt->fetchAll();
-        foreach ($results as $result) {
-            $entity =new $this->entityClass();
-            $entity->hydrate($result);
-            $entities[]=$entity;
-        }
-        return $entities;
+    public function findAll(): array
+    {
+        $stmt = $this->pdo->query("SELECT * FROM {$this->table}");
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        return array_map(function ($row) {
+            $entity = new $this->entityClass();
+            $entity->hydrate($row);
+            return $entity;
+        }, $rows);
     }
 
-    public function findOne(int $id){
-        $stmt =$this->pdo->prepare("SELECT * FROM ${this->table} where id=?");
-        $stmt->execute([$id]);
-        $result =$stmt->fetch();
-        if(!$result) return null;
-        $entity=new $this->entityClass();
-        $entity->hydrate($result);
+    public function find(int $id): ?object
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM {$this->table} WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) return null;
+
+        $entity = new $this->entityClass();
+        $entity->hydrate($row);
         return $entity;
     }
 
-    public function Create(object $entity){
-        $ref =new ReflectionClass($entity);
-        $props =$ref->getProperties();
-        $params =[];
-        $values =[];
-        $keys =[];
-        foreach($props as $prop ){
-            $props->setAccessible(true);
-            $name =$prop->getName();
-            if($name ==='id')continue;
-            $keys[] =$name;
-            $values[$name]=$prop.getValue();
-            $params[]=':'.$name;
+    public function create(object $entity): bool
+    {
+        $ref = new ReflectionClass($entity);
+        $props = $ref->getProperties();
+
+        $fields = [];
+        $params = [];
+        $values = [];
+
+        foreach ($props as $prop) {
+            $prop->setAccessible(true);
+            $name = $prop->getName();
+
+            if ($name === 'id') continue;
+
+            $fields[] = $name;
+            $params[] = ':' . $name;
+            $values[$name] = $prop->getValue($entity);
         }
 
-        $stmt =$this->pdo->prepare("INSERT INTO {$this->table} (".implode (',',$keys).") VALUES(".implode(',',$params).")");
-        return $stmt->execute($values);
-    }
+        $sql = "INSERT INTO {$this->table} (" . implode(',', $fields) . ")
+                VALUES (" . implode(',', $params) . ")";
 
-    public function delete(int $id){
-        $stmt =$this->pdo->prepare("DELETE * FROM {$this->table} where id =?");
-        $stmt->execute([$id]);
+        return $this->pdo->prepare($sql)->execute($values);
     }
 
     public function update(object $entity): bool
@@ -71,7 +77,7 @@ class BaseRepository{
             $name = $prop->getName();
             $value = $prop->getValue($entity);
 
-            if ($name === 'id') {
+            if ($name === $this->primaryKey) {
                 $id = $value;
                 continue;
             }
@@ -80,9 +86,16 @@ class BaseRepository{
             $data[$name] = $value;
         }
 
-        $data['id'] = $id;
+        $data["{$this->primaryKey}"] = $id;
 
-        $sql = "UPDATE {$this->table} SET " . implode(',', $set) . " WHERE id = :id";
-        return $this->conn->prepare($sql)->execute($data);
+        $sql = "UPDATE {$this->table} SET " . implode(', ', $set) . " WHERE {$this->primaryKey} = :{$this->primaryKey}";
+        return $this->pdo->prepare($sql)->execute($data);
+    }
+
+    public function delete(int $id): bool
+    {
+        return $this->pdo
+            ->prepare("DELETE FROM {$this->table} WHERE {$this->primaryKey} = :id ")
+            ->execute(['id' => $id]);
     }
 }

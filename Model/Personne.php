@@ -1,14 +1,13 @@
 <?php
-
-abstract class Personne extends BaseEntity{
+ class Personne extends BaseEntity{
     #[Column(name :'id' ,type:'INT' ,primaryKey :true )]
     protected ?int $id = null ;
-    #[Column(name :'Nom' ,type:'VARCHAR' ,length:50 )]
-    protected ?string $Nom;
+    #[Column(name :'nom' ,type:'VARCHAR' ,length:50 )]
+    protected ?string $nom =null;
     #[Column(name :'email' ,type:'VARCHAR' )]
-    protected ?string $email ;
-    #[Column(name :'Nationalite' ,type:'VARCHAR'  )]
-    protected ?string $Nationalite ;
+    protected ?string $email =null ;
+    #[Column(name :'nationalite' ,type:'VARCHAR'  )]
+    protected ?string $nationalite =null;
 
     
 }

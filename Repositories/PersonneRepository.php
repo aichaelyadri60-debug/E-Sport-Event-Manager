@@ -1,8 +1,9 @@
 <?php
 
 
-class Personne extends BaseRepository{
-    protected string $table ='joueur';
-    protected string $entityClass=Joueur::class;
+class PersonneRepository extends BaseRepository{
+    protected string $table ='personne';
+    protected string $entityClass=Personne::class;
 
+    
 }
