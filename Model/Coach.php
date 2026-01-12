@@ -7,7 +7,5 @@ class Coach extends BaseEntity{
     private string $style_coaching ;
     #[Column(name :'annees_experience' ,type:'INT')]
     private int $annees_experience ;
-    #[Column(name: 'equipe_id', type: 'INT')]
-    private ?int $equipe_id = null;
 
 }

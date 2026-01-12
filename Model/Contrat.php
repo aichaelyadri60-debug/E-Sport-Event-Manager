@@ -1,6 +1,8 @@
 <?php
 #[table(name:'Contrat')]
 class Contrat extends BaseEntity {
+    #[Column(name: 'uuid', type: 'string')]
+    public readonly string $uuid;
 
     #[Column(name: 'id', type: 'INT', primaryKey: true)]
     private int $id;
@@ -18,8 +20,16 @@ class Contrat extends BaseEntity {
     private float $clause_rachat;
 
     #[Column(name: 'date_debut', type: 'DATE')]
-    private DateTime $date_debut;
+    private ?DateTime $date_debut;
 
     #[Column(name: 'date_fin', type: 'DATE')]
-    private DateTime $date_fin;
+    private ?DateTime $date_fin =null;
+
+    public function __construct(){
+        $this->uuid =self::generationuuid();
+    }
+
+    private static function generationuuid(){
+        return bin2hex(random_bytes(16));
+    }
 }

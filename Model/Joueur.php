@@ -14,6 +14,13 @@ class Joueur extends BaseEntity {
     #[Column(name: 'valeur_marchande', type: 'DECIMAL', m: 12, d: 2)]
     private float $valeur_marchande;
 
-    #[Column(name: 'equipe_id', type: 'INT')]
-    private ?int $equipe_id =null;
+     public function getAnnualCost(): float
+    {
+        return $this->salaire + $this->bonus;
+    }
+
+    public function getValeurMarchande(): float
+    {
+        return $this->valeurMarchande;
+    }
 }

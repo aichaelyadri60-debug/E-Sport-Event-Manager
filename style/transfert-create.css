@@ -1,0 +1,71 @@
+body {
+    background: #f4f6f9;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.transfer-container {
+    margin-left: 260px;
+    padding: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.transfer-card {
+    width: 520px;
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+.transfer-card h2 {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.transfer-card label {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.transfer-card input,
+.transfer-card select {
+    width: 100%;
+    padding: 11px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.transfer-card input:focus,
+.transfer-card select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 11px 22px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.btn.primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn.secondary {
+    background: #6b7280;
+    color: white;
+}

@@ -29,19 +29,20 @@ class PersonneController
         $this->pdo->beginTransaction();
 
         try {
+            
+            if ($_POST['type'] === 'joueur') {
             $personne = new Personne();
 
             $personne->hydrate([
                 'nom'          => $_POST['nom'],
                 'email'        => $_POST['email'],
-                'nationalite'  => $_POST['nationalite']
+                'nationalite'  => $_POST['nationalite'],
+                'typee'        => 'joueur',
             ]);
 
             $this->personneRepo->create($personne);
 
             $personneId = (int)$this->pdo->lastInsertId();
-
-            if ($_POST['type'] === 'joueur') {
 
                 $joueur = new Joueur();
 
@@ -55,6 +56,18 @@ class PersonneController
                 $this->joueurRepo->create($joueur);
 
             } elseif ($_POST['type'] === 'coach') {
+                 $personne = new Personne();
+
+            $personne->hydrate([
+                'nom'          => $_POST['nom'],
+                'email'        => $_POST['email'],
+                'nationalite'  => $_POST['nationalite'],
+                'typee'        => 'coach',
+            ]);
+
+            $this->personneRepo->create($personne);
+
+            $personneId = (int)$this->pdo->lastInsertId();
 
                 $coach = new Coach();
 

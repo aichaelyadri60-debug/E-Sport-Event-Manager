@@ -66,8 +66,6 @@ class JoueurController{
         $this->personneRepo->delete($id);
         header('Location: index.php?controller=joueur&action=index');
         exit;
-
-
     }
 
 }

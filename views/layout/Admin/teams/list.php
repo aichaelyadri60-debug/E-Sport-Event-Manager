@@ -28,7 +28,7 @@
             <button type="button">🔍</button>
         </form>
 
-        <a href="index.php?controller=equipe&action=create" class="btn btn-primary">
+        <a href="index.php?controller=equipe&action=show" class="btn btn-primary">
             + Ajouter une équipe
         </a>
     </div>
@@ -52,23 +52,23 @@
         <?php if (!empty($equipes)): ?>
             <?php foreach ($equipes as $equipe): ?>
                 <tr>
-                    <td><?= htmlspecialchars($equipe['nom']) ?></td>
-                    <td><?= htmlspecialchars($equipe['manager']) ?></td>
-                    <td><?= number_format($equipe['budget'], 2, ',', ' ') ?> €</td>
+                    <td><?= htmlspecialchars($equipe->getNom()) ?></td>
+                    <td><?= htmlspecialchars($equipe->getManager()) ?></td>
+                    <td><?= number_format($equipe->getBudget(), 2, ',', ' ') ?> €</td>
 
                     <td class="actions">
                         <a class="btn-action view"
-                           href="index.php?controller=equipe&action=show&id=<?= $equipe['id'] ?>">
+                           href="index.php?controller=equipe&action=show&id=<?= $equipe->getId() ?>">
                             Voir
                         </a>
 
                         <a class="btn-action edit"
-                           href="index.php?controller=equipe&action=edit&id=<?= $equipe['id'] ?>">
+                           href="index.php?controller=equipe&action=edit&id=<?= $equipe->getId() ?>">
                             Éditer
                         </a>
 
                         <a class="btn-action delete"
-                           href="index.php?controller=equipe&action=delete&id=<?= $equipe['id'] ?>"
+                           href="index.php?controller=equipe&action=delete&id=<?= $equipe->getId() ?>"
                            onclick="return confirm('Voulez-vous supprimer cette équipe ?')">
                             Supprimer
                         </a>

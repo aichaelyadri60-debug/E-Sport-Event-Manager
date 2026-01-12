@@ -14,6 +14,8 @@ $controllers = [
     'Personne' => PersonneController::class,
     'coach'    => CoachController::class,
     'equipe'    => EquipeController::class,
+    'transfert'    => TransfertController::class,
+    'contrat'    => ContratController::class,
 ];
 
 if (!isset($controllers[$controllerName])) {

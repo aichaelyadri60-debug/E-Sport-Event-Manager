@@ -47,15 +47,22 @@ abstract class BaseRepository
         $values = [];
 
         foreach ($props as $prop) {
-            $prop->setAccessible(true);
-            $name = $prop->getName();
+    $prop->setAccessible(true);
+    $name = $prop->getName();
 
-            if ($name === 'id') continue;
+    if ($name === 'id') continue;
 
-            $fields[] = $name;
-            $params[] = ':' . $name;
-            $values[$name] = $prop->getValue($entity);
-        }
+    $value = $prop->getValue($entity);
+
+    if ($value instanceof DateTime) {
+        $value = $value->format('Y-m-d');
+    }
+
+    $fields[] = $name;
+    $params[] = ':' . $name;
+    $values[$name] = $value;
+}
+
 
         $sql = "INSERT INTO {$this->table} (" . implode(',', $fields) . ")
                 VALUES (" . implode(',', $params) . ")";

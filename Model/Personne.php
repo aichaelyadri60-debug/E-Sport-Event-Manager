@@ -8,6 +8,8 @@
     protected ?string $email =null ;
     #[Column(name :'nationalite' ,type:'VARCHAR'  )]
     protected ?string $nationalite =null;
+    #[Column(name :'typee' ,type:'VARCHAR'  )]
+    protected ?string $typee =null;
 
     
 }

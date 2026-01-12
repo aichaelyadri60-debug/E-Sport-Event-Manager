@@ -10,4 +10,24 @@ class Equipe extends BaseEntity{
     private float $budget;
     #[Column(name :'Nom' ,type:'VARCHAR')]
     private string $manager;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
+    public function getBudget(): float
+    {
+        return $this->budget;
+    }
+
+    public function getManager(): string
+    {
+        return $this->manager;
+    }
 }
